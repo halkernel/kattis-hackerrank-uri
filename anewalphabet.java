@@ -47,11 +47,11 @@ public class Main {
 		String result="";
 
 		for(int i=0; i < charArray.length; i++){
-			//caracteres
+			//characters
 			if(alphabet.containsKey(line.substring(i, i+1))){
 				s.add(alphabet.get(line.substring(i, i+1)));
 			}
-			//espacos vazios e outros sinais
+			//blank spaces and other signals
 			else
 				s.add(line.substring(i, i+1));
 			
