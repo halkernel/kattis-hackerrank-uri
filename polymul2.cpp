@@ -19,7 +19,7 @@ int getsize(int n) {
 }
 
 
-
+//references 
 //http://web.cs.iastate.edu/~cs577/handouts/polymultiply.pdf
 //https://www.youtube.com/watch?v=htCj9exbGo0
 
