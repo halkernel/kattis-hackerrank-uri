@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <iostream>
 #include <unistd.h>
 #include <unordered_set>
+#include <valarray>
+#include <complex>
+#include <vector>
+#include <cmath>
 
 
 using namespace std;
