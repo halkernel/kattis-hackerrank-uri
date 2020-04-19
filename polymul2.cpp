@@ -20,6 +20,8 @@ int getsize(int n) {
 
 
 
+//http://web.cs.iastate.edu/~cs577/handouts/polymultiply.pdf
+//https://www.youtube.com/watch?v=htCj9exbGo0
 
 void ftt(valarray<complex<double>> &arr){
 
