@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define ln printf("\n");
 
 typedef struct node{
   char inf[1];
@@ -9,18 +12,40 @@ typedef struct node{
 
 NODE * head = NULL;
 
-void show_tree(NODE * current){
+
+void pre_print(NODE * current){
 	NODE * tmp = current;
 	printf("%c -> ", (*tmp).inf[0]);
 	if((*tmp).right != NULL){
-		show_tree((*tmp).right);
+		pre_print((*tmp).right);
 	}
 	if((*tmp).left != NULL){
-		show_tree((*tmp).left);
+		pre_print((*tmp).left);
 	}
 } 
 
 
+void in_print(NODE * current){
+	NODE * tmp = current;
+	if((*tmp).right != NULL){
+		in_print((*tmp).right);
+	}
+	printf("%c -> ", (*tmp).inf[0]);
+	if((*tmp).left != NULL){
+		in_print((*tmp).left);
+	}
+} 
+
+void post_print(NODE * current){
+	NODE * tmp = current;
+	if((*tmp).right != NULL){
+		post_print((*tmp).right);
+	}
+	if((*tmp).left != NULL){
+		post_print((*tmp).left);
+	}
+	printf("%c -> ", (*tmp).inf[0]);
+} 
 NODE * create_node(char value){
 	NODE * leaf = (NODE *) malloc(sizeof (NODE));
 	(*leaf).inf[0] = value;
@@ -54,9 +79,18 @@ void add_node(char value, NODE * current){
 
 
 int main(){
-	//printf("hello world");	
-	add_node('A', head);
-	add_node('B', head);
-	show_tree(head);
+	char let[26];
+	int i;
+	scanf("%s", let);
+	for(i=0; i < strlen(let); i++){
+		add_node(let[i], head);
+	}
+  pre_print(head);
+	ln
+	in_print(head);
+	ln
+	post_print(head);
+	ln
+
 	return 0;
 }
