@@ -7,16 +7,19 @@ typedef struct node{
 	struct node* right;
 }NODE;
 
-
 NODE * head = NULL;
 
-void show_tree(){
-	NODE * tmp = head;
-	while(tmp != NULL){
-		printf("%c ->", (*tmp).inf[0]);
-		tmp = (*tmp).left;
-	} 
-}
+void show_tree(NODE * current){
+	NODE * tmp = current;
+	printf("%c -> ", (*tmp).inf[0]);
+	if((*tmp).right != NULL){
+		show_tree((*tmp).right);
+	}
+	if((*tmp).left != NULL){
+		show_tree((*tmp).left);
+	}
+} 
+
 
 NODE * create_node(char value){
 	NODE * leaf = (NODE *) malloc(sizeof (NODE));
@@ -25,30 +28,35 @@ NODE * create_node(char value){
 }
 
 
-void add_node(char value, NODE * left, NODE * right){
-	NODE * leaf = create_node(value);
-	NODE * tmp = head;
+void add_node(char value, NODE * current){
+	NODE * tmp = current;
 
-	if(head == NULL){
-		head = leaf; 
+	if(current == NULL){
+		head = create_node(value); 
 		return;
 	}
 
 	if(value > (*tmp).inf[0]){
-		printf("B");
+		if((*tmp).right == NULL){
+			(*tmp).right = create_node(value);
+			return;
+		}
+		add_node(value, (*tmp).right);
+	}else {
+		if((*tmp).left == NULL){
+			(*tmp).left = create_node(value);
+			return;
+		}
+		add_node(value, (*tmp).left);
 	}
+}	
 
-	while((*tmp).left != NULL){
-		tmp = (*tmp).left;
-	}
-	(*tmp).left = leaf;
-}
 
 
 int main(){
 	//printf("hello world");	
-	add_node('A', NULL, NULL);
-	add_node('B', NULL, NULL);
-	show_tree();
+	add_node('A', head);
+	add_node('B', head);
+	show_tree(head);
 	return 0;
 }
