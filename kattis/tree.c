@@ -12,40 +12,11 @@ typedef struct node{
 
 NODE * head = NULL;
 
-
-void pre_print(NODE * current){
-	NODE * tmp = current;
-	printf("%c -> ", (*tmp).inf[0]);
-	if((*tmp).right != NULL){
-		pre_print((*tmp).right);
-	}
-	if((*tmp).left != NULL){
-		pre_print((*tmp).left);
-	}
-} 
+void pre_print(NODE * current);
+void in_print(NODE * current);
+void post_print(NODE * current);
 
 
-void in_print(NODE * current){
-	NODE * tmp = current;
-	if((*tmp).right != NULL){
-		in_print((*tmp).right);
-	}
-	printf("%c -> ", (*tmp).inf[0]);
-	if((*tmp).left != NULL){
-		in_print((*tmp).left);
-	}
-} 
-
-void post_print(NODE * current){
-	NODE * tmp = current;
-	if((*tmp).right != NULL){
-		post_print((*tmp).right);
-	}
-	if((*tmp).left != NULL){
-		post_print((*tmp).left);
-	}
-	printf("%c -> ", (*tmp).inf[0]);
-} 
 NODE * create_node(char value){
 	NODE * leaf = (NODE *) malloc(sizeof (NODE));
 	(*leaf).inf[0] = value;
@@ -85,7 +56,7 @@ int main(){
 	for(i=0; i < strlen(let); i++){
 		add_node(let[i], head);
 	}
-  pre_print(head);
+    pre_print(head);
 	ln
 	in_print(head);
 	ln
@@ -94,3 +65,40 @@ int main(){
 
 	return 0;
 }
+
+
+
+
+void pre_print(NODE * current){
+	NODE * tmp = current;
+	printf("%c", (*tmp).inf[0]);
+	if((*tmp).left != NULL){
+		pre_print((*tmp).left);
+	}
+	if((*tmp).right != NULL){
+		pre_print((*tmp).right);
+	}
+} 
+
+
+void in_print(NODE * current){
+	NODE * tmp = current;
+	if((*tmp).left != NULL){
+		in_print((*tmp).left);
+	}
+	printf("%c", (*tmp).inf[0]);
+	if((*tmp).right != NULL){
+		in_print((*tmp).right);
+	}
+} 
+
+void post_print(NODE * current){
+	NODE * tmp = current;
+	if((*tmp).left != NULL){
+		post_print((*tmp).left);
+	}
+	if((*tmp).right != NULL){
+		post_print((*tmp).right);
+	}
+	printf("%c", (*tmp).inf[0]);
+} 
