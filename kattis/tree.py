@@ -71,113 +71,76 @@ def post_r(node):
 
 
 
-
-
 perms = [0, 0, 1, 1, 2, 2]
 fun_per = ["Pre", "In", "Post"]
 all_perms = list(itertools.permutations(perms, 6))
 
 
+
 def find_order(s1, s2, s3,
-                f1, f2, f3,
-                permutations):    
+               f1, f2, f3):
 
-
-    if s1 == [] and s2 == [] and s3 == []:
-        return None
+    if s1 == '' and s2 == '' and s3 == '':
+        return
     
-
-    ret = None    
-    
-    if s1 == []: f1 = 3
-    if s2 == []: f2 = 3
-    if s3 == []: f3 = 3
-    if f1 == f2 and s1 != s2: return ret
-    if f1 == f3 and s1 != s3: return ret
-    if f2 == f3 and s2 != s3: return ret
+    if s1 == '': f1 = 3
+    if s2 == '': f2 = 3
+    if s3 == '': f3 = 3
+    if f1 == f2 and s1 != s2: return
+    if f1 == f3 and s1 != s3: return
+    if f2 == f3 and s2 != s3: return
     ln = len(s1)
     if ln == 0: ln = len(s2)
     if ln == 0: ln = len(s3)
-    if len(s2) and ln != len(s2): return ret
-    if len(s3) and ln != len(s3): return ret
+    if ln != len(s2): return
+    if ln != len(s3): return
 
-   
-    inputs = [[],[],[]]
-    inputs[f1] = s1
-    inputs[f2] = s2
-    inputs[f3] = s3   
-
-    pair = [inputs[0], inputs[1], inputs[2]]
-    if pair is not None:
-        return pair;
+    ss = [s1, s2, s3]
     
+    for i in range(ln-1):
+        c1 = ''
+        if ss[0] != '': c1 = ss[0][0]
 
+        if ss[1] != '':
+            c2 = ss[1][i]            
+            if c1 != c2: continue            
+            c1 = c2             
 
-    for i in range(len(s1)):
-
-        
-        if inputs[0] != []: c1 = inputs[0][0]          
-        if inputs[1] != []:            
-            c2 = inputs[1][i]
-            if c1 != c2: continue
+        if ss[2] != '':
+            c2 = ss[2][ln-1]
+            if c1 != c2: continue            
             c1 = c2
-
-        if inputs[2] != []:
-            c2 = inputs[2][ln-1];
-            if c1 != c2: continue;
-            c1 = c2;
-
-        
-
-        
-        lst = find_order(inputs[0][1:i], 
-                         inputs[1][0:i], 
-                         inputs[2][0:i],
-                         permutations[0], 
-                         permutations[2], 
-                         permutations[4],
-                         permutations)
-        if lst == None: continue
-
-        rst = find_order(inputs[0][1+i:], 
-                         inputs[1][1+i:], 
-                         inputs[2][i:len(s1)-i-1],
-                         permutations[1], 
-                         permutations[3], 
-                         permutations[5],
-                         permutations)
-        if rst == None: continue
-        
-        cur = TreeNode(c1, lst, rst)
-
-        if ret == None or pre_r(cur) < pre_r(ret) or pre_r(cur) == pre_r(ret) and inn_r(cur) < inn_r(ret):
-            ret = cur;
         
                 
-        return TreeNode(c1, lst, rst)
+        lf = find_order('' if ss[0] == '' else ss[1:i],
+                        '' if ss[1] == '' else ss[0:i],
+                        '' if ss[2] == '' else ss[0:i],
+                        perms[0], 
+                        perms[2], 
+                        perms[4])
 
+        rt = find_order('' if ss[0] == '' else ss[1+1:],
+                        '' if ss[1] == '' else ss[1+i:],
+                        '' if ss[2] == '' else ss[i, ln-i-1],
+                        perms[1], 
+                        perms[3], 
+                        perms[5])
         
+        cur = TreeNode(c1, lf, rt)
+        return cur
 
+
+
+    
 
 for perm in all_perms:            
-    print([int(i) for i in perm])
+    # print([int(i) for i in perm])
     f_res = find_order("HFBIGEDCJA", "BIGEDCJFAH", "BIGEDCJFAH",
-         0, 1, 2, perm)
-    print(pre_r(f_res))
-    # if pre_r(f_res) == "HFBIGEDCJA":
-    #     print(perm)
+         0, 1, 2)   
+    #pre(f_res)
+
+
        
-
-
-
-# print("HFBIGEDCJA") #input
-# print("HFBJCDEGIA") #output
-# print(pre_r(f_res)) #resultado
-# print(inn_r(f_res)) #resultado
-
-# print(post_r(f_res)) #resultado
-
-
 
 
         
@@ -187,22 +150,27 @@ for perm in all_perms:
 # s3 = readline()
 
 
-# root = TreeNode('A')
+# root = TreeNode('H')
+# root.insert('F')
 # root.insert('B')
+# root.insert('J')
 # root.insert('C')
 # root.insert('D')
 # root.insert('E')
-# root.insert('F')
 # root.insert('G')
-# root.insert('H')
 # root.insert('I')
-# root.insert('J')
+# root.insert('A')
+
+
+
 
 
 
 # res = pre_r(root)
 # print(res)
+# print(res)
 # res = inn_r(root)
 # print(res)
 # res = post_r(root)
 # print(res)
+
